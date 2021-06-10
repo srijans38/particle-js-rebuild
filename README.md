@@ -1,15 +1,14 @@
-# HTML Canvas Starter
+# Particle.js Rebuilt from Scratch
 
-This is a starter template for HTML Canvas project.
+This is an attempt to rebuild the famous particle.js default animation from scratch, using the HTML Canvas API.
 
-## Getting Started
+## Live Deployment
 
-Hit the `Use this template` button on this repository
+Check out the live deployment [here](https://particle-js.vercel.app/)
 
-OR
+## Demo
 
-Using Github CLI, run `gh repo create new-repo --template=srijans38/canvas-starter`
-
+![demo](demo.gif)
 ## Project Structure
 
 ├── favicon.svg<br />
@@ -27,4 +26,6 @@ Using Github CLI, run `gh repo create new-repo --template=srijans38/canvas-start
 ## References
 
 [Canvas API Docs - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) <br />
-[Vite Docs](https://vitejs.dev/guide/)
+[Vite Docs](https://vitejs.dev/guide/) <br />
+[particle.js](https://vincentgarreau.com/particles.js)
+
