@@ -25,7 +25,7 @@ function join() {
       if (distance < 100) {
         c.beginPath();
         c.strokeStyle = `rgba(255,255,255,${map(distance, 0, 100, 0.5, 0)}`;
-        c.lineWidth = 1.5;
+        c.lineWidth = devicePixelRatio == 1 ? 1.5 : devicePixelRatio;
         c.moveTo(particles[i].x, particles[i].y);
         c.lineTo(particles[j].x, particles[j].y);
         c.stroke();
@@ -167,10 +167,10 @@ function init() {
 
   particles.length = 0;
 
-  for (let i = 0; i < window.innerWidth / 3; i++) {
+  for (let i = 0; i < (window.innerWidth / 3) * devicePixelRatio; i++) {
     let x = Math.random() * canvas.width;
     let y = Math.random() * canvas.height;
-    let radius = Math.random() * 2;
+    let radius = Math.random() * 2 * devicePixelRatio;
 
     particles.push(new Particle(x, y, radius, 'white'));
   }
