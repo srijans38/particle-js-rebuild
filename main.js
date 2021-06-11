@@ -4,6 +4,7 @@ import './style.css';
 let canvas = document.querySelector('#canvas');
 let c = canvas.getContext('2d');
 let particles = [];
+let devicePixelRatio = window.devicePixelRatio || 1;
 
 // SET INITIAL CANVAS WIDTH ------------------------------------
 canvas.width = window.innerWidth;
@@ -56,6 +57,44 @@ function repel(mouseX, mouseY) {
   }
 }
 
+function scaleCanvas(canvas, context, width, height) {
+  // assume the device pixel ratio is 1 if the browser doesn't specify it
+  devicePixelRatio = window.devicePixelRatio || 1;
+  console.log({ devicePixelRatio });
+
+  // determine the 'backing store ratio' of the canvas context
+  const backingStoreRatio =
+    context.webkitBackingStorePixelRatio ||
+    context.mozBackingStorePixelRatio ||
+    context.msBackingStorePixelRatio ||
+    context.oBackingStorePixelRatio ||
+    context.backingStorePixelRatio ||
+    1;
+
+  // determine the actual ratio we want to draw at
+  const ratio = devicePixelRatio / backingStoreRatio;
+  console.log({ ratio });
+
+  if (devicePixelRatio !== backingStoreRatio) {
+    // set the 'real' canvas size to the higher width/height
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+
+    // ...then scale it back down with CSS
+    document.body.style.width = canvas.style.width = width + 'px';
+    document.body.style.height = canvas.style.height = height + 'px';
+  } else {
+    // this is a normal 1:1 device; just scale it simply
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = '';
+    canvas.style.height = '';
+  }
+
+  // scale the drawing context so everything will work at the higher ratio
+  // context.scale(ratio, ratio);
+}
+
 // EVENT LISTENERS ---------------------------------------------
 window.addEventListener('resize', () => {
   init();
@@ -69,7 +108,7 @@ window.addEventListener('mousemove', (e) => {
 window.addEventListener('touchmove', (e) => {
   e.preventDefault();
   let touch = e.touches[0];
-  repel(touch.clientX, touch.clientY);
+  repel(touch.clientX * devicePixelRatio, touch.clientY * devicePixelRatio);
 });
 
 // PARTICLE OBJECT CONSTRUCTOR ---------------------------------
@@ -120,17 +159,10 @@ function draw() {
 
 // INIT FUNCTION -----------------------------------------------
 function init() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // canvas.width = window.innerWidth;
+  // canvas.height = window.innerHeight;
 
-  // const ratio = Math.ceil(window.devicePixelRatio);
-
-  // canvas.width = canvas.width * ratio;
-  // canvas.height = canvas.height * ratio;
-  // canvas.style.width = `${window.innerWidth}px`;
-  // canvas.style.height = `${window.innerHeight}px`;
-
-  // c.scale(ratio, ratio);
+  scaleCanvas(canvas, c, window.innerWidth, window.innerHeight);
 
   particles.length = 0;
 
