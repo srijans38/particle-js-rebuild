@@ -102,7 +102,7 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('mousemove', (e) => {
   // console.log(e.clientX, e.clientY);
-  repel(e.clientX, e.clientY);
+  repel(e.clientX * devicePixelRatio, e.clientY * devicePixelRatio);
 });
 
 window.addEventListener('touchmove', (e) => {
