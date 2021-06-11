@@ -5,6 +5,7 @@ let canvas = document.querySelector('#canvas');
 let c = canvas.getContext('2d');
 let particles = [];
 let devicePixelRatio = window.devicePixelRatio || 1;
+let animFrame;
 
 // SET INITIAL CANVAS WIDTH ------------------------------------
 canvas.width = window.innerWidth;
@@ -152,13 +153,15 @@ function draw() {
     particle.update();
   });
 
-  requestAnimationFrame(draw);
+  animFrame = requestAnimationFrame(draw);
 }
 
 // INIT FUNCTION -----------------------------------------------
 function init() {
   // canvas.width = window.innerWidth;
   // canvas.height = window.innerHeight;
+
+  animFrame && window.cancelAnimationFrame(animFrame);
 
   scaleCanvas(canvas, c, window.innerWidth, window.innerHeight);
 
