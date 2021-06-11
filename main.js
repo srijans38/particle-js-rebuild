@@ -66,6 +66,12 @@ window.addEventListener('mousemove', (e) => {
   repel(e.clientX, e.clientY);
 });
 
+window.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  let touch = e.touches[0];
+  repel(touch.clientX, touch.clientY);
+});
+
 // PARTICLE OBJECT CONSTRUCTOR ---------------------------------
 function Particle(x, y, radius, color) {
   this.x = x;
