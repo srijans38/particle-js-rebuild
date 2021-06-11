@@ -57,10 +57,10 @@ function repel(mouseX, mouseY) {
   }
 }
 
+// Taken from callumlocke's gist
 function scaleCanvas(canvas, context, width, height) {
   // assume the device pixel ratio is 1 if the browser doesn't specify it
   devicePixelRatio = window.devicePixelRatio || 1;
-  console.log({ devicePixelRatio });
 
   // determine the 'backing store ratio' of the canvas context
   const backingStoreRatio =
@@ -73,7 +73,6 @@ function scaleCanvas(canvas, context, width, height) {
 
   // determine the actual ratio we want to draw at
   const ratio = devicePixelRatio / backingStoreRatio;
-  console.log({ ratio });
 
   if (devicePixelRatio !== backingStoreRatio) {
     // set the 'real' canvas size to the higher width/height
@@ -101,7 +100,6 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener('mousemove', (e) => {
-  // console.log(e.clientX, e.clientY);
   repel(e.clientX * devicePixelRatio, e.clientY * devicePixelRatio);
 });
 
